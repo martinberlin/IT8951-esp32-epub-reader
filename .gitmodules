@@ -7,3 +7,5 @@
 [submodule "lib/epdiy"]
 	path = lib/epdiy
 	url = https://github.com/martinberlin/epdiy-rotation.git
+	branch = lilygos3
+
