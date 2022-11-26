@@ -6,4 +6,4 @@ build
 *.old
 
 dependencies.lock
-.cache/config
+.cache/*
