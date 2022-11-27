@@ -27,7 +27,6 @@ public:
     // epd_quality: Uses 16 levels of grayscale
     display.setEpdMode(epd_mode_t::epd_fast);
     display.clearDisplay();
-    //driver.SetColorReverse(true);
   }
 
   ~M5PaperRenderer()
@@ -37,8 +36,9 @@ public:
 
   void flush_display()
   {
-    printf("flush_display()");
+    //printf("flush_display()");
   }
+  
   void flush_area(int x, int y, int width, int height)
   {
     printf("flush_display(%d,%d, W:%d, H:%d)", x, y,  width, height);

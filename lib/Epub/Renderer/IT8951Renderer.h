@@ -161,43 +161,40 @@ public:
 
   void draw_rect(int x, int y, int width, int height, uint8_t color = 0)
   {
-    needs_gray(color);
     display.drawRect(x + margin_left, y + margin_top, width, height);
   }
 
   virtual void fill_rect(int x, int y, int width, int height, uint8_t color = 0)
   {
-    needs_gray(color);
     display.fillRect(x + margin_left, y + margin_top, width, height);
   }
   virtual void fill_circle(int x, int y, int r, uint8_t color = 0)
   {
-    needs_gray(color);
     display.fillCircle(x, y, r);
   }
   
   virtual void fill_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint8_t color)
   {
-    needs_gray(color);
     display.fillTriangle(x0, y0, x1, y1, x2, y2);
   }
 
   virtual void draw_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint8_t color)
   {
-    needs_gray(color);
     display.drawTriangle(x0, y0, x1, y1, x2, y2);
   }
 
   virtual void draw_pixel(int x, int y, uint8_t color)
   {
-    needs_gray(color);
-    // Not working as expected: Draws nothing
-    //display.drawPixel(x + margin_left, y + margin_top);
+    // Draws nothing because it's being called ineficiently to render images
+    display.drawPixel(x + margin_left, y + margin_top);
+  }
+
+  virtual void draw_jpeg(const uint8_t *jpg_data, uint32_t jpg_len, int32_t x, int32_t y, int32_t maxWidth, int32_t maxHeight, int32_t offX, int32_t offY) {
+    display.drawJpg(jpg_data, jpg_len, x, y, maxWidth, maxHeight, offX, offY);
   }
 
   virtual void draw_circle(int x, int y, int r, uint8_t color = 0)
   {
-    needs_gray(color);
     display.drawCircle(x, y, r);
   }
 
@@ -207,7 +204,9 @@ public:
 
   virtual void clear_screen()
   {
+    display.clear();
     display.clearDisplay();
+    vTaskDelay(pdMS_TO_TICKS(50));
     // Leaves marks all over:
     //display.fillScreen(display.color888(255,255,255));
   }
