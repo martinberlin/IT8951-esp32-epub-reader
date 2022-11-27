@@ -1348,3 +1348,8 @@ MINIZ_EXPORT void *mz_zip_extract_archive_file_to_heap_v2(const char *pZip_filen
 #endif
 
 #endif /* MINIZ_NO_ARCHIVE_APIS */
+
+// Compresses an image to a compressed PNG file in memory.
+typedef mz_uint8 *(*tdefl_get_png_row_func)(mz_uint8 *pImage, mz_bool flip, int w, int h, int y, int bpl, void *target);
+mz_uint8 *tdefl_get_png_row_default( mz_uint8 *pImage, mz_bool flip, int w, int h, int y, int bpl, void *target );
+void *tdefl_write_image_to_png_file_in_memory_ex_with_cb(const void *pImage, int w, int h, int num_chans, size_t *pLen_out, mz_uint level, mz_bool flip, tdefl_get_png_row_func cb, void *target);
