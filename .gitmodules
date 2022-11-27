@@ -9,3 +9,8 @@
 	url = https://github.com/martinberlin/epdiy-rotation.git
 	branch = lilygos3
 
+[submodule "lib/LovyanGFX"]
+	path = lib/LovyanGFX
+	url = https://github.com/lovyan03/LovyanGFX.git
+	branch = develop
+
