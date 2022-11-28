@@ -195,13 +195,20 @@ public:
 
   virtual void draw_pixel(int x, int y, uint8_t color)
   {
-    // Draws nothing because it's being called ineficiently to render images
+    // Draws slow because it's being called inefficiently to render images
+    display.setColor(display.color888(color,color,color));
     display.drawPixel(x + margin_left, y + margin_top);
+    display.setColor(display.color888(0,0,0));
   }
 
   virtual void draw_jpeg(const uint8_t *jpg_data, uint32_t jpg_len, int32_t x, int32_t y, int32_t maxWidth, int32_t maxHeight, int32_t offX, int32_t offY) {
     display.drawJpg(jpg_data, jpg_len, x, y, maxWidth, maxHeight, offX, offY);
   }
+
+  virtual void draw_png(const uint8_t *png_data, uint32_t png_len, int32_t x, int32_t y, int32_t maxWidth, int32_t maxHeight, int32_t offX, int32_t offY, float scale_x = 1.0f, float scale_y = 0.0f) {
+    display.drawPng(png_data, png_len, x, y, maxWidth, maxHeight, offX, offY, scale_x, scale_y);
+  }
+
 
   virtual void draw_circle(int x, int y, int r, uint8_t color = 0)
   {
@@ -236,8 +243,6 @@ public:
 
   virtual int get_space_width()
   {
-    //epd_get_glyph(m_regular_font, ' ');
-    // Check how to get the advanceX for a font automatically
     auto space_glyph = display.textWidth((char*)" ");
     return space_glyph*2;
   }
@@ -245,7 +250,7 @@ public:
   virtual int get_line_height()
   {
     // Same here check how to recognize this from the font definition
-    return 30;
+    return 27;
   }
 
   // dehydate a frame buffer to file. Not used here!

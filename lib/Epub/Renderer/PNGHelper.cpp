@@ -37,6 +37,7 @@ bool PNGHelper::get_size(const uint8_t *data, size_t data_size, int *width, int 
     return false;
   }
 }
+
 bool PNGHelper::render(const uint8_t *data, size_t data_size, Renderer *renderer, int x_pos, int y_pos, int width, int height)
 {
   this->renderer = renderer;
@@ -48,19 +49,28 @@ bool PNGHelper::render(const uint8_t *data, size_t data_size, Renderer *renderer
     this->x_scale = std::min(1.0f, float(width) / float(png.getWidth()));
     this->y_scale = std::min(1.0f, float(height) / float(png.getHeight()));
     this->last_y = -1;
-    this->tmp_rgb565_buffer = (uint16_t *)malloc(png.getWidth() * 2);
+    //this->tmp_rgb565_buffer = (uint16_t *)malloc(png.getWidth() * 2);
+    //png.decode(this, PNG_FAST_PALETTE);
+    //png.close();
 
-    png.decode(this, PNG_FAST_PALETTE);
-    png.close();
-    free(this->tmp_rgb565_buffer);
+    renderer->draw_png(data, data_size, x_pos, y_pos, width, height, 0, 0, this->x_scale, this->y_scale);
+
+    //free(this->tmp_rgb565_buffer);
     return true;
   }
   else
   {
     ESP_LOGE(TAG, "failed to parse png %d", rc);
+    renderer->draw_png(data, data_size, x_pos, y_pos, width, height, 0, 0);
     return false;
   }
 }
+
+/**
+ * @deprecated after implementing LovyanGFX
+ * 
+ * @param draw 
+ */
 void PNGHelper::draw_callback(PNGDRAW *draw)
 {
   // work out where we should be drawing this line
@@ -83,8 +93,15 @@ void PNGHelper::draw_callback(PNGDRAW *draw)
   }
 };
 
+/**
+ * @deprecated after implementing LovyanGFX
+ * 
+ * @param draw 
+ */
 void png_draw_callback(PNGDRAW *draw)
 {
+  /* 
   PNGHelper *helper = (PNGHelper *)draw->pUser;
-  helper->draw_callback(draw);
+  helper->draw_callback(draw); 
+  */
 }
