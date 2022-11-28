@@ -3,7 +3,6 @@
 
 #include <LovyanGFX.hpp>
 
-#include "Ubuntu_M12pt8b.h"
 #include <driver/rtc_io.h>
 #include <driver/gpio.h>
 #include "IT8951Renderer.h"

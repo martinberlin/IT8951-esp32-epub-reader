@@ -2,9 +2,13 @@
 #include <esp_log.h>
 #include <math.h>
 #include "Renderer.h"
-#include "Ubuntu_M12pt8b.h"
 
-#define GAMMA_VALUE (1.0f / 0.8f)
+// Font files generated with:
+// ./fontconvert /usr/share/fonts/truetype/ubuntu/Ubuntu-LI.ttf  12 32 252 > Ubuntu_LI12pt8b.h
+#include "Ubuntu_R12pt8b.h"
+#include "Ubuntu_B12pt8b.h"
+#include "Ubuntu_LI12pt8b.h"
+#include "Ubuntu_BI12pt8b.h"
 
 // Display Width/Height in platformio ini. Adjust to yours if you use a different one
 
@@ -76,10 +80,10 @@ class IT8951Renderer : public Renderer
 public:
     LGFX display;
 protected:
-  const GFXfont *m_regular_font;
-  const GFXfont *m_bold_font;
-  const GFXfont *m_italic_font;
-  const GFXfont *m_bold_italic_font;
+  const GFXfont *m_regular_font = &Ubuntu_R12pt8b;
+  const GFXfont *m_bold_font = &Ubuntu_B12pt8b;
+  const GFXfont *m_italic_font = &Ubuntu_LI12pt8b;
+  const GFXfont *m_bold_italic_font = &Ubuntu_BI12pt8b;
   const uint8_t *m_busy_image;
   int m_busy_image_width;
   int m_busy_image_height;
@@ -118,21 +122,21 @@ public:
   {
      display.setRotation(1);
      // Default wake up font
-     display.setFont(&Ubuntu_M12pt8b);
+     display.setFont(&Ubuntu_R12pt8b);
   }
 
   void show_busy()
   {
     int x = (EPD_HEIGHT - m_busy_image_width) / 2;
     int y = (EPD_WIDTH - m_busy_image_height) / 2;
-    int width = m_busy_image_width;
-    int height = m_busy_image_height;
-    // Check how to print an image buffer
+    //pushGrayscaleImage(int32_t x, int32_t y, int32_t w, int32_t h, const uint8_t* image, color_depth_t depth, const T& forecolor, const T& backcolor
+    show_img(x, y, m_busy_image_width, m_busy_image_height, m_busy_image);
   }
 
   void show_img(int x, int y, int width, int height, const uint8_t *img_buffer)
   {
-    // Check how to print an image buffer
+    // Seems to be 4 bit gray the C image array
+    display.pushGrayscaleImage(x, y, width, height, img_buffer, lgfx::v1::color_depth_t::grayscale_4bit, display.color888(255,255,255), display.color888(0,0,0));
   }
 
   void needs_gray(uint8_t color)
@@ -241,7 +245,7 @@ public:
   virtual int get_line_height()
   {
     // Same here check how to recognize this from the font definition
-    return 26;
+    return 30;
   }
 
   // dehydate a frame buffer to file. Not used here!
