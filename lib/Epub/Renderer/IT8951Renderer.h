@@ -161,7 +161,11 @@ public:
 
   void draw_rect(int x, int y, int width, int height, uint8_t color = 0)
   {
+    display.setColor(display.color888(color,color,color));
     display.drawRect(x + margin_left, y + margin_top, width, height);
+    if (color!=0) {
+      display.setColor(display.color888(0,0,0));
+    }
   }
 
   virtual void fill_rect(int x, int y, int width, int height, uint8_t color = 0)
@@ -244,7 +248,7 @@ public:
     return true;
   }
 
-  // hydrate a frame buffer
+  // hydrate a frame buffer.
   virtual bool hydrate()
   {
     return true;
