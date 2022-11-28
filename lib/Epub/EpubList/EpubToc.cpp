@@ -75,6 +75,7 @@ void EpubToc::render()
       TextBlock *title_block = new TextBlock(LEFT_ALIGN);
       title_block->add_span(epub->get_toc_item(i).title.c_str(), false, false);
       title_block->layout(renderer, epub, renderer->get_page_width());
+
       // work out the height of the title
       int text_height = cell_height - PADDING;
       int title_height = title_block->line_breaks.size() * renderer->get_line_height();

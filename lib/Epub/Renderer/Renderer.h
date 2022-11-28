@@ -16,7 +16,7 @@ private:
 
 protected:
   int margin_top = 0;
-  int margin_bottom = 6;
+  int margin_bottom = 10;
   int margin_left = 0;
   int margin_right = 0;
 

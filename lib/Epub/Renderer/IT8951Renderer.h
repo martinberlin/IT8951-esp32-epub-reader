@@ -204,11 +204,13 @@ public:
 
   virtual void clear_screen()
   {
-    display.clear();
+    // Leaves marks all over when clearDisplay is not called in quality mode (Full refresh GC16 mode)
+    //display.fillScreen(display.color888(255,255,255));
+    //printf("Clears in full gray\n");
+    display.setEpdMode(epd_mode_t::epd_quality);
     display.clearDisplay();
     vTaskDelay(pdMS_TO_TICKS(50));
-    // Leaves marks all over:
-    //display.fillScreen(display.color888(255,255,255));
+    display.setEpdMode(epd_mode_t::epd_fast);
   }
 
   virtual int get_page_width()
