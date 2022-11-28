@@ -2,4 +2,5 @@
 nvs,      data, nvs,     0x9000,  0x5000,
 otadata,  data, ota,     0xe000,  0x2000,
 app0,     app,  ota_0,   0x10000, 0x120000,
-spiffs,   data, spiffs,  0x130000,0x2D0000,
+spiffs,   data, spiffs,  0x130000,2800000,
+# IMPORTANT maximum size should be 4 MB

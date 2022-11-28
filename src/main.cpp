@@ -184,7 +184,7 @@ void draw_battery_level(Renderer *renderer, float voltage, float percentage)
   int width = 40;
   int height = 20;
   int margin_right = 5;
-  int margin_top = 10;
+  int margin_top = 5;
   int xpos = renderer->get_page_width() - width - margin_right;
   int ypos = margin_top;
   int percent_width = width * percentage / 100;
@@ -193,7 +193,7 @@ void draw_battery_level(Renderer *renderer, float voltage, float percentage)
   renderer->draw_rect(xpos, ypos, width, height, 0);
   renderer->fill_rect(xpos - 4, ypos + height / 4, 4, height / 2, 0);
   // put the margin back
-  renderer->set_margin_top(35);
+  renderer->set_margin_top(25);
 }
 
 void main_task(void *param)
@@ -218,8 +218,8 @@ void main_task(void *param)
   }
 
   // make space for the battery display
-  renderer->set_margin_top(35);
-  renderer->set_margin_bottom(10);
+  renderer->set_margin_top(30);
+  renderer->set_margin_bottom(20);
   // page margins
   renderer->set_margin_left(10);
   renderer->set_margin_right(10);
