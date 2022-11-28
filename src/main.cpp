@@ -219,6 +219,7 @@ void main_task(void *param)
 
   // make space for the battery display
   renderer->set_margin_top(35);
+  renderer->set_margin_bottom(10);
   // page margins
   renderer->set_margin_left(10);
   renderer->set_margin_right(10);
@@ -258,7 +259,8 @@ void main_task(void *param)
 
   // keep track of when the user last interacted and go to sleep after N seconds
   int64_t last_user_interaction = esp_timer_get_time();
-  while (esp_timer_get_time() - last_user_interaction < 120 * 1000 * 1000)
+  // 3 minutes: 180
+  while (esp_timer_get_time() - last_user_interaction < 180 * 1000 * 1000)
   {
     UIAction ui_action = NONE;
     // wait for something to happen for 60 seconds

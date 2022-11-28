@@ -23,6 +23,7 @@ public:
       : IT8951Renderer(regular_font, bold_font, italic_font, bold_italic_font, busy_icon, busy_icon_width, busy_icon_height)
   {
     display.init();
+    display.setVCOM(2000);
     // epd_fast:    LovyanGFX uses a 4×4 16pixel tile pattern to display a pseudo 17 level grayscale.
     // epd_quality: Uses 16 levels of grayscale
     display.setEpdMode(epd_mode_t::epd_fast);

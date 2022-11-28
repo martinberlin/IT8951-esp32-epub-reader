@@ -117,6 +117,8 @@ public:
         m_busy_image(busy_icon), m_busy_image_width(busy_icon_width), m_busy_image_height(busy_icon_height)
   {
      display.setRotation(1);
+     // Default wake up font
+     display.setFont(&Ubuntu_M12pt8b);
   }
 
   void show_busy()
@@ -245,13 +247,13 @@ public:
   // dehydate a frame buffer to file. Not used here!
   virtual bool dehydrate()
   {
-    return true;
+    return false;
   }
 
   // hydrate a frame buffer.
   virtual bool hydrate()
   {
-    return true;
+    return false;
   }
 
   virtual void reset() = 0;

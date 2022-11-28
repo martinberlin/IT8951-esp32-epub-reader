@@ -70,18 +70,11 @@ void TextBlock::add_span(const char *span, bool is_bold, bool is_italic)
 void TextBlock::layout(Renderer *renderer, Epub *epub, int max_width)
 {
   //printf("max_width:%d\n\n", max_width);
-
   // measure each word
   for (int i = 0; i < words.size(); i++)
   {
     // Measure the word. 
     int width = renderer->get_text_width(words[i], word_styles[i] & BOLD_SPAN, word_styles[i] & ITALIC_SPAN);
-    // Find out why get_text_width is returning the wrong width for the word in TOC
-    if (max_width == 618) {
-      // There must be a better way to know if we are rendering TOC
-      width *= 2;
-    }
-    
     word_widths.push_back(width);
   }
 
