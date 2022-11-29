@@ -16,7 +16,7 @@ private:
 
 protected:
   int margin_top = 0;
-  int margin_bottom = 0;
+  int margin_bottom = 20;
   int margin_left = 0;
   int margin_right = 0;
 
@@ -31,6 +31,9 @@ public:
   virtual void draw_rect(int x, int y, int width, int height, uint8_t color = 0) = 0;
   virtual void draw_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint8_t color) = 0;
   virtual void draw_circle(int x, int y, int r, uint8_t color = 0) = 0;
+  // Image renderer helpers (Using LovyanGFX)
+  virtual void draw_jpeg(const uint8_t *jpg_data, uint32_t jpg_len, int32_t x, int32_t y, int32_t maxWidth, int32_t maxHeight, int32_t offX, int32_t offY) = 0;
+  virtual void draw_png(const uint8_t *png_data, uint32_t png_len, int32_t x, int32_t y, int32_t maxWidth, int32_t maxHeight, int32_t offX, int32_t offY, float scale_x = 1.0f, float scale_y = 0.0f) = 0;
 
   virtual void fill_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint8_t color) = 0;
   virtual void fill_rect(int x, int y, int width, int height, uint8_t color = 0) = 0;

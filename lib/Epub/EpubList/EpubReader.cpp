@@ -40,6 +40,7 @@ void EpubReader::parse_and_layout_current_section()
   if (!parser)
   {
     renderer->show_busy();
+    renderer->set_margin_bottom(20);
     ESP_LOGI(TAG, "Parse and render section %d", state.current_section);
     ESP_LOGD(TAG, "Before read html: %d", esp_get_free_heap_size());
 

@@ -69,10 +69,11 @@ void TextBlock::add_span(const char *span, bool is_bold, bool is_italic)
 // given a renderer works out where to break the words into lines
 void TextBlock::layout(Renderer *renderer, Epub *epub, int max_width)
 {
+  //printf("max_width:%d\n\n", max_width);
   // measure each word
   for (int i = 0; i < words.size(); i++)
   {
-    // measure the word
+    // Measure the word. 
     int width = renderer->get_text_width(words[i], word_styles[i] & BOLD_SPAN, word_styles[i] & ITALIC_SPAN);
     word_widths.push_back(width);
   }

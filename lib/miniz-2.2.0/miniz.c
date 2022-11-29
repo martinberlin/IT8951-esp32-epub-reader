@@ -7731,3 +7731,10 @@ mz_bool mz_zip_end(mz_zip_archive *pZip)
 #endif
 
 #endif /*#ifndef MINIZ_NO_ARCHIVE_APIS*/
+
+
+mz_uint8 *tdefl_get_png_row_default( mz_uint8 *pImage, mz_bool flip, int w, int h, int y, int bpl, void *target ) {
+  (void)target; // unused here
+  (void)w;
+  return (mz_uint8*)pImage + (flip ? (h - 1 - y) : y) * bpl;
+}
