@@ -89,12 +89,12 @@ bool EpubList::load(const char *path)
     const char * warning = "Please insert SD Card";
     renderer->draw_rect(1, y, renderer->get_text_width(warning, true, false)+150, 115, 80);
     renderer->draw_text_box(warning, warning_width+25, y+4, renderer->get_page_width(), 80, true, false);
-    renderer->draw_text_box("Restarting in 10 secs.", warning_width+25, y+34, renderer->get_page_width(), 80, false, false);
+    renderer->draw_text_box("Restarting in 20 secs.", warning_width+25, y+34, renderer->get_page_width(), 80, false, false);
     perror("");
     renderer->flush_display();
     ESP_LOGE(TAG, "Is SD-Card inserted and properly connected?\nCould not open directory %s", path);
     #ifndef UNIT_TEST
-      vTaskDelay(pdMS_TO_TICKS(1000*10));
+      vTaskDelay(pdMS_TO_TICKS(1000*20));
       esp_restart();
     #endif
     

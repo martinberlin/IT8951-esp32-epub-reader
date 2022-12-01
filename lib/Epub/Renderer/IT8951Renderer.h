@@ -244,13 +244,13 @@ public:
   virtual int get_space_width()
   {
     auto space_glyph = display.textWidth((char*)" ");
-    return space_glyph*2;
+    return space_glyph*1.5;
   }
 
   virtual int get_line_height()
   {
     // Same here check how to recognize this from the font definition
-    return 27;
+    return 32;
   }
 
   // dehydate a frame buffer to file. Not used here!
@@ -263,6 +263,17 @@ public:
   virtual bool hydrate()
   {
     return false;
+  }
+
+  // Keeps updates in buffer and releases it on endWrite
+  virtual void start_write()
+  {
+    display.startWrite();
+  }
+  // Flush display
+  virtual void end_write()
+  {
+    display.endWrite();
   }
 
   virtual void reset() = 0;

@@ -48,11 +48,11 @@ public:
   }
 };
 
-// a layed out page ready to be rendered
+// A layed out page ready to be rendered
 class Page
 {
 public:
-  // the list of block index and line numbers on this page
+  // The list of block index and line numbers on this page
   std::vector<PageElement *> elements;
   void render(Renderer *renderer, Epub *epub)
   {
@@ -61,6 +61,7 @@ public:
       element->render(renderer, epub);
     }
   }
+  
   ~Page()
   {
     for (auto element : elements)
