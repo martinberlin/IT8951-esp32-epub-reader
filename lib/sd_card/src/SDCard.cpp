@@ -29,7 +29,8 @@ SDCard::SDCard(const char *mount_point, gpio_num_t miso, gpio_num_t mosi, gpio_n
       .allocation_unit_size = 16 * 1024};
 
   ESP_LOGI(TAG, "Initializing SD card");
-
+  m_host.slot = SPI3_HOST;
+  
   spi_bus_config_t bus_cfg = {
       .mosi_io_num = mosi,
       .miso_io_num = miso,
@@ -39,7 +40,7 @@ SDCard::SDCard(const char *mount_point, gpio_num_t miso, gpio_num_t mosi, gpio_n
       .max_transfer_sz = 0,
       .flags = 0,
       .intr_flags = 0};
-  ret = spi_bus_initialize(spi_host_device_t(m_host.slot), &bus_cfg, SPI_DMA_CHAN);
+  ret = spi_bus_initialize(spi_host_device_t(m_host.slot), &bus_cfg, SPI_DMA_CH_AUTO);
   if (ret != ESP_OK)
   {
     if (ret == ESP_ERR_INVALID_STATE)
@@ -57,7 +58,8 @@ SDCard::SDCard(const char *mount_point, gpio_num_t miso, gpio_num_t mosi, gpio_n
   sdspi_device_config_t slot_config = SDSPI_DEVICE_CONFIG_DEFAULT();
   slot_config.gpio_cs = cs;
   slot_config.host_id = spi_host_device_t(m_host.slot);
-
+  
+  // Failing to mount the card: (Also with esp_vfs_fat_sdmmc_mount)
   ret = esp_vfs_fat_sdspi_mount(m_mount_point.c_str(), &m_host, &slot_config, &mount_config, &m_card);
 
   if (ret != ESP_OK)

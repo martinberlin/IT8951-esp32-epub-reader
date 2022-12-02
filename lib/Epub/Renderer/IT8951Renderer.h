@@ -4,7 +4,8 @@
 #include "Renderer.h"
 
 // Font files generated with:
-// ./fontconvert /usr/share/fonts/truetype/ubuntu/Ubuntu-LI.ttf  12 32 252 > Ubuntu_LI12pt8b.h
+// ./fontconvert /usr/share/fonts/truetype/ubuntu/Ubuntu-R.ttf  12 32 440 > Ubuntu_R12pt8b.h
+// Each font with so many glyphs it's about 85 Kb
 #include "Ubuntu_R12pt8b.h"
 #include "Ubuntu_B12pt8b.h"
 #include "Ubuntu_LI12pt8b.h"
