@@ -162,7 +162,7 @@ public:
     int ypos = y + get_line_height() + margin_top;
     int xpos = x + margin_left;
     display.setCursor(xpos, ypos);
-    display.setFont(get_font(bold, italic));
+    //display.setFont(get_font(bold, italic));
     display.printf("%s", text);
   }
 
