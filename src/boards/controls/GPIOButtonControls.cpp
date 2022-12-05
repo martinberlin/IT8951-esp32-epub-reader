@@ -122,20 +122,20 @@ void GPIOButtonControls::setup_deep_sleep()
   else
   {
     // can use ext1 for buttons that are active high
+    rtc_gpio_init(gpio_down);
+    rtc_gpio_set_direction(gpio_down, RTC_GPIO_MODE_INPUT_ONLY);
+    rtc_gpio_pulldown_en(gpio_down);
+    /*
     rtc_gpio_init(gpio_up);
     rtc_gpio_set_direction(gpio_up, RTC_GPIO_MODE_INPUT_ONLY);
     rtc_gpio_pulldown_en(gpio_up);
 
-    /* rtc_gpio_init(gpio_down);
-    rtc_gpio_set_direction(gpio_down, RTC_GPIO_MODE_INPUT_ONLY);
-    rtc_gpio_pulldown_en(gpio_down);
-
     rtc_gpio_init(gpio_select);
     rtc_gpio_set_direction(gpio_select, RTC_GPIO_MODE_INPUT_ONLY);
     rtc_gpio_pulldown_en(gpio_select); */
-    // | (1ULL << gpio_down) | (1ULL << gpio_select)
+    // | (1ULL << gpio_up) | (1ULL << gpio_select)
     esp_sleep_enable_ext1_wakeup(
-        (1ULL << gpio_up) ,
+        (1ULL << gpio_down),
         ESP_EXT1_WAKEUP_ANY_HIGH);
   }
 }
