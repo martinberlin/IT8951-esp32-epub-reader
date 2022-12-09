@@ -123,7 +123,7 @@ void handleEpubList(Renderer *renderer, UIAction action, bool needs_redraw)
   {
     ESP_LOGI("main", "Creating epub list");
     epub_list = new EpubList(renderer, epub_list_state);
-    if (epub_list->load("/fs/"))
+    if (epub_list->load("/fs"))
     {
       ESP_LOGI("main", "Epub files loaded");
     }

@@ -29,7 +29,8 @@ SDCard::SDCard(const char *mount_point, gpio_num_t miso, gpio_num_t mosi, gpio_n
       .allocation_unit_size = 16 * 1024};
 
   ESP_LOGI(TAG, "Initializing SD card");
-  m_host.slot = SPI3_HOST;
+  // No need to add this, will take SPI2_HOST by default
+  //m_host.slot = SPI3_HOST;
   
   spi_bus_config_t bus_cfg = {
       .mosi_io_num = mosi,

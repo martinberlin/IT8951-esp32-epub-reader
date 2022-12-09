@@ -34,14 +34,13 @@ public:
     // TODO: cleanup and shutdown?
   }
 
+  // Not used with Lovyan since display is flushed automatically
   void flush_display()
   {
-    //printf("flush_display()");
   }
   
   void flush_area(int x, int y, int width, int height)
   {
-    printf("flush_display(%d,%d, W:%d, H:%d)", x, y,  width, height);
   }
 
   virtual bool hydrate()

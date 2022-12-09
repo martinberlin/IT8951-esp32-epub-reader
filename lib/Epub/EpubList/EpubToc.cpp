@@ -1,6 +1,6 @@
 #include "EpubToc.h"
 
-static const char *TAG = "PUBINDEX";
+static const char *TAG = "EPUBTOC";
 #define PADDING 14
 #define ITEMS_PER_PAGE 6
 
