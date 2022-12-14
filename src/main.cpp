@@ -123,7 +123,7 @@ void handleEpubList(Renderer *renderer, UIAction action, bool needs_redraw)
   {
     ESP_LOGI("main", "Creating epub list");
     epub_list = new EpubList(renderer, epub_list_state);
-    if (epub_list->load("/fs/"))
+    if (epub_list->load("/fs"))
     {
       ESP_LOGI("main", "Epub files loaded");
     }
@@ -259,8 +259,8 @@ void main_task(void *param)
 
   // keep track of when the user last interacted and go to sleep after N seconds
   int64_t last_user_interaction = esp_timer_get_time();
-  // 3 minutes: 180
-  while (esp_timer_get_time() - last_user_interaction < 180 * 1000 * 1000)
+  // 4 minutes: 240
+  while (esp_timer_get_time() - last_user_interaction < 240 * 1000 * 1000)
   {
     UIAction ui_action = NONE;
     // wait for something to happen for 60 seconds

@@ -4,7 +4,8 @@
 #include "Renderer.h"
 
 // Font files generated with:
-// ./fontconvert /usr/share/fonts/truetype/ubuntu/Ubuntu-LI.ttf  12 32 252 > Ubuntu_LI12pt8b.h
+// ./fontconvert /usr/share/fonts/truetype/ubuntu/Ubuntu-R.ttf  12 32 440 > Ubuntu_R12pt8b.h
+// Each font with so many glyphs it's about 85 Kb
 #include "Ubuntu_R12pt8b.h"
 #include "Ubuntu_B12pt8b.h"
 #include "Ubuntu_LI12pt8b.h"
@@ -28,7 +29,7 @@ public:
       auto cfg = _bus_instance.config();    // バス設定用の構造体を取得します。
 
 // SPIバスの設定
-      cfg.spi_host = SPI2_HOST;     // 使用するSPIを選択  (VSPI_HOST or HSPI_HOST)
+      cfg.spi_host = SPI3_HOST;     // 使用するSPIを選択  (VSPI_HOST or HSPI_HOST)
       cfg.spi_mode = 0;             // SPI通信モードを設定 (0 ~ 3)
       cfg.freq_write = 40000000;    // 送信時のSPIクロック (最大80MHz, 80MHzを整数で割った値に丸められます)
       cfg.freq_read  = 16000000;    // 受信時のSPIクロック
@@ -161,7 +162,7 @@ public:
     int ypos = y + get_line_height() + margin_top;
     int xpos = x + margin_left;
     display.setCursor(xpos, ypos);
-    display.setFont(get_font(bold, italic));
+    //display.setFont(get_font(bold, italic));
     display.printf("%s", text);
   }
 
@@ -244,13 +245,13 @@ public:
   virtual int get_space_width()
   {
     auto space_glyph = display.textWidth((char*)" ");
-    return space_glyph*2;
+    return space_glyph*1.5;
   }
 
   virtual int get_line_height()
   {
     // Same here check how to recognize this from the font definition
-    return 27;
+    return 32;
   }
 
   // dehydate a frame buffer to file. Not used here!
@@ -263,6 +264,17 @@ public:
   virtual bool hydrate()
   {
     return false;
+  }
+
+  // Keeps updates in buffer and releases it on endWrite
+  virtual void start_write()
+  {
+    display.startWrite();
+  }
+  // Flush display
+  virtual void end_write()
+  {
+    display.endWrite();
   }
 
   virtual void reset() = 0;

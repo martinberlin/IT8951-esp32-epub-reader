@@ -61,6 +61,7 @@ public:
   virtual bool hydrate() { return false; };
   // really really clear the screen
   virtual void reset(){};
-
-  uint8_t temperature = 20;
+  // Write only on the buffer and release on end_write
+  virtual void start_write() = 0;
+  virtual void end_write() = 0;
 };

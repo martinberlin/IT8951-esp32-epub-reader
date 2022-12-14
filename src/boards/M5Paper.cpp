@@ -9,8 +9,8 @@
 
 #define IT8951_5V_ENABLE GPIO_NUM_38
 // setup the pins to use for navigation
-#define BUTTON_UP_GPIO_NUM GPIO_NUM_21
-#define BUTTON_DOWN_GPIO_NUM GPIO_NUM_47
+#define BUTTON_UP_GPIO_NUM GPIO_NUM_47
+#define BUTTON_DOWN_GPIO_NUM GPIO_NUM_21
 #define BUTTON_SELECT_GPIO_NUM GPIO_NUM_48
 // buttons are high when pressed
 #define BUTONS_ACTIVE_LEVEL 1
