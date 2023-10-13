@@ -56,10 +56,12 @@ public:
   std::vector<PageElement *> elements;
   void render(Renderer *renderer, Epub *epub)
   {
+    renderer->start_write();
     for (auto element : elements)
     {
       element->render(renderer, epub);
     }
+    renderer->end_write();
   }
   
   ~Page()
