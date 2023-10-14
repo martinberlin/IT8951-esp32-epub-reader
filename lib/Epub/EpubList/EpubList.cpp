@@ -26,7 +26,9 @@ void EpubList::prev()
 
 bool EpubList::load(const char *path)
 {
-  if (state.is_loaded)
+  // Solves bug that is rendering List with only empty rectangles (After deep-sleep)
+  // Research why
+  if (false)  // state.is_loaded
   {
     ESP_LOGI(TAG, "Already loaded books");
     return true;
