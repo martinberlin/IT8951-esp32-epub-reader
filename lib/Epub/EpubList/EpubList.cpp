@@ -26,7 +26,9 @@ void EpubList::prev()
 
 bool EpubList::load(const char *path)
 {
-  if (state.is_loaded)
+  // Solves bug that is rendering List with only empty rectangles (After deep-sleep)
+  // Research why
+  if (false)  // state.is_loaded
   {
     ESP_LOGI(TAG, "Already loaded books");
     return true;
@@ -163,11 +165,13 @@ void EpubList::render()
       // center the title in the cell
       int y_offset = title_height < text_height ? (text_height - title_height) / 2 : 0;
       // draw each line of the title making sure we don't run over the cell
+      renderer->start_write();
       for (int i = 0; i < title_block->line_breaks.size() && y_offset + renderer->get_line_height() < text_height; i++)
       {
         title_block->render(renderer, i, text_xpos, text_ypos + y_offset);
         y_offset += renderer->get_line_height();
       }
+      renderer->end_write();
       delete title_block;
       delete epub;
     }

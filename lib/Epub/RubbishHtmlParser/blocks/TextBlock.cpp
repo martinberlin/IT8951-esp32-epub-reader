@@ -206,7 +206,8 @@ void TextBlock::render(Renderer *renderer, int line_break_index, int x_pos, int 
   int start = line_break_index == 0 ? 0 : line_breaks[line_break_index - 1];
   int end = line_breaks[line_break_index];
   
-  renderer->start_write();
+  // Commenting this for now since makes other parts than the line quite grayish
+  //renderer->start_write();
   for (int i = start; i < end; i++)
   {
     // get the style
@@ -215,7 +216,7 @@ void TextBlock::render(Renderer *renderer, int line_break_index, int x_pos, int 
     renderer->draw_text(x_pos + word_xpos[i], y_pos, words[i], style & BOLD_SPAN, style & ITALIC_SPAN);
   }
   // Flush display
-  renderer->end_write();
+  //renderer->end_write();
 }
 // debug helper - dumps out the contents of the block with line breaks
 void TextBlock::dump()
