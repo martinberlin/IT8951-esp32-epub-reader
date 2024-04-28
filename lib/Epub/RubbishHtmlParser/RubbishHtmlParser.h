@@ -3,6 +3,7 @@
 #include <string>
 #include <list>
 #include <vector>
+#include <stdexcept>
 #include <tinyxml2.h>
 #include "blocks/TextBlock.h"
 

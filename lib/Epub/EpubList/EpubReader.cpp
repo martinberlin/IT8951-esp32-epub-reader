@@ -17,7 +17,7 @@ static const char *TAG = "EREADER";
 
 bool EpubReader::load()
 {
-  ESP_LOGD(TAG, "Before epub load: %d", esp_get_free_heap_size());
+  ESP_LOGD(TAG, "Before epub load: %d", (int) esp_get_free_heap_size());
   // do we need to load the epub?
   if (!epub || epub->get_path() != state.path)
   {
@@ -28,7 +28,7 @@ bool EpubReader::load()
     epub = new Epub(state.path);
     if (epub->load())
     {
-      ESP_LOGD(TAG, "After epub load: %d", esp_get_free_heap_size());
+      ESP_LOGD(TAG, "After epub load: %d", (int)esp_get_free_heap_size());
       return false;
     }
   }
@@ -40,8 +40,8 @@ void EpubReader::parse_and_layout_current_section()
   if (!parser)
   {
     renderer->show_busy();
-    ESP_LOGI(TAG, "Parse and render section %d", state.current_section);
-    ESP_LOGD(TAG, "Before read html: %d", esp_get_free_heap_size());
+    ESP_LOGI(TAG, "Parse and render section %d", (int) state.current_section);
+    //ESP_LOGD(TAG, "Before read html: %d", esp_get_free_heap_size());
 
     // if spine item is not found here then it will return get_spine_item(0)
     // so it does not crashes when you want to go after last page (out of vector range)
