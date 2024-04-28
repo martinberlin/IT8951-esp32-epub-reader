@@ -3,6 +3,7 @@
 #include <epdiy.h>
 #include <math.h>
 #include "Renderer.h"
+#include <cstring>
 #include "miniz.h"
 
 #define GAMMA_VALUE (1.0f / 0.8f)

@@ -4,6 +4,7 @@
 #include <epd_highlevel.h>
 #include <math.h>
 #include "EpdiyFrameBufferRenderer.h"
+#include <cstring>
 #include "miniz.h"
 
 class EpdiyRenderer : public EpdiyFrameBufferRenderer
@@ -23,7 +24,7 @@ public:
       : EpdiyFrameBufferRenderer(regular_font, bold_font, italic_font, bold_italic_font, busy_icon, busy_icon_width, busy_icon_height)
   {
     // start up the EPD
-    epd_init(&epd_board_v7, &ED047TC1, EPD_LUT_64K);
+    epd_init(&epd_board_lilygo_t5_47_touch, &ED047TC1, EPD_LUT_64K);
 
     m_hl = epd_hl_init(EPD_BUILTIN_WAVEFORM);
     // first set full screen to white

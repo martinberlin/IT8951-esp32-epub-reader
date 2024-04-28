@@ -5,7 +5,7 @@
 // 100 ms debounce on the buttons
 const int BUTTON_DEBOUNCE = 50000;
 
-IRAM_ATTR void button_interrupt_handler(void *param)
+void button_interrupt_handler(void *param)
 {
   GPIOButton *button = (GPIOButton *)param;
   button->handle_interrupt();

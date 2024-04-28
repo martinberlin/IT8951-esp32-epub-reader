@@ -2,6 +2,7 @@
 #include <freertos/task.h>
 #include <freertos/queue.h>
 #include <esp_sleep.h>
+#include <esp_timer.h>
 #include "config.h"
 #include "EpubList/Epub.h"
 #include "EpubList/EpubList.h"
@@ -316,6 +317,6 @@ void app_main()
   ESP_LOGI("main", "epub list state is_loaded=%d", epub_list_state.is_loaded);
   ESP_LOGI("main", "epub list state selected_item=%d", epub_list_state.selected_item);
 
-  ESP_LOGI("main", "Memory before main task start %d", esp_get_free_heap_size());
+  ESP_LOGI("main", "Memory before main task start %d", (int)esp_get_free_heap_size());
   xTaskCreatePinnedToCore(main_task, "main_task", 32768, NULL, 1, NULL, 1);
 }
