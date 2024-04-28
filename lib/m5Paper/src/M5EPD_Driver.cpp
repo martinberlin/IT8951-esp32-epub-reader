@@ -2,6 +2,7 @@
 #include <esp_err.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
+#include <esp_timer.h>
 #include "M5EPD_Driver.h"
 
 #define M5EPD_MAIN_PWR_PIN GPIO_NUM_2
@@ -110,7 +111,7 @@ m5epd_err_t M5EPD_Driver::begin()
                                             .queue_size = 2,
                                             .pre_cb = NULL,
                                             .post_cb = NULL};
-    ret = spi_bus_initialize(HSPI_HOST, &buscfg, SPI_DMA_CH1);
+    ret = spi_bus_initialize(SPI3_HOST, &buscfg, SPI_DMA_CH_AUTO);
     if (ret != ESP_OK)
     {
         if (ret == ESP_ERR_INVALID_STATE)
@@ -122,7 +123,7 @@ m5epd_err_t M5EPD_Driver::begin()
             ESP_LOGI("M5P", "SPI initialization failed\n");
         }
     }
-    ret = spi_bus_add_device(HSPI_HOST, &devcfg, &spi);
+    ret = spi_bus_add_device(SPI3_HOST, &devcfg, &spi);
     if (ret != ESP_OK)
     {
         ESP_LOGI("M5P", "spi_bus_add_device Failed %d", ret);
