@@ -43,8 +43,8 @@ TouchControls *Lilygo_t5_47::get_touch_controls(Renderer *renderer, xQueueHandle
   return new L58TouchControls(
       renderer,
       CONFIG_TOUCH_INT,
-      EPD_WIDTH,
-      EPD_HEIGHT,
+      epd_width(),
+      epd_height(),
       3,
       [ui_queue](UIAction action)
       {

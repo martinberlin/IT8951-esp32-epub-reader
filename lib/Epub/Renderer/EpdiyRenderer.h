@@ -1,6 +1,6 @@
 #pragma once
 #include <esp_log.h>
-#include <epd_driver.h>
+#include <epdiy.h>
 #include <epd_highlevel.h>
 #include <math.h>
 #include "EpdiyFrameBufferRenderer.h"
@@ -23,7 +23,7 @@ public:
       : EpdiyFrameBufferRenderer(regular_font, bold_font, italic_font, bold_italic_font, busy_icon, busy_icon_width, busy_icon_height)
   {
     // start up the EPD
-    epd_init(EPD_OPTIONS_DEFAULT);
+    epd_init(&epd_board_v7, &ED047TC1, EPD_LUT_64K);
 
     m_hl = epd_hl_init(EPD_BUILTIN_WAVEFORM);
     // first set full screen to white
@@ -59,7 +59,7 @@ public:
     if (EpdiyFrameBufferRenderer::hydrate())
     {
       // just memcopy the front buffer to the back buffer - they should be exactly the same
-      memcpy(m_hl.back_fb, m_frame_buffer, EPD_WIDTH * EPD_HEIGHT / 2);
+      memcpy(m_hl.back_fb, m_frame_buffer, epd_width() * epd_height() / 2);
       ESP_LOGI("EPD", "Hydrated EPD");
       return true;
     }

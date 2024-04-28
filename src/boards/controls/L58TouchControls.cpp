@@ -3,7 +3,7 @@
 #include "L58TouchControls.h"
 #include "L58Touch.h"
 #include <Renderer/Renderer.h>
-#include "epd_driver.h"
+#include "epdiy.h"
 
 void touchTask(void *param)
 {

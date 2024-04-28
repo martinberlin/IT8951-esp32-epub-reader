@@ -25,7 +25,7 @@ public:
     driver.begin();
     driver.SetColorReverse(true);
 
-    m_frame_buffer = (uint8_t *)malloc(EPD_WIDTH * EPD_HEIGHT / 2);
+    m_frame_buffer = (uint8_t *)malloc(epd_width() * epd_height() / 2);
     clear_screen();
   }
   ~M5PaperRenderer()

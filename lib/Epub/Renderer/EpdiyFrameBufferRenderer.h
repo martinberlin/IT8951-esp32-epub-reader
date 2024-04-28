@@ -1,6 +1,6 @@
 #pragma once
 #include <esp_log.h>
-#include <epd_driver.h>
+#include <epdiy.h>
 #include <math.h>
 #include "Renderer.h"
 #include "miniz.h"
@@ -66,8 +66,8 @@ public:
   }
   void show_busy()
   {
-    int x = (EPD_HEIGHT - m_busy_image_width) / 2;
-    int y = (EPD_WIDTH - m_busy_image_height) / 2;
+    int x = (epd_height() - m_busy_image_width) / 2;
+    int y = (epd_width() - m_busy_image_height) / 2;
     int width = m_busy_image_width;
     int height = m_busy_image_height;
     EpdRect image_area = {.x = x,
@@ -162,17 +162,17 @@ public:
 
   virtual void clear_screen()
   {
-    memset(m_frame_buffer, 0xFF, EPD_WIDTH * EPD_HEIGHT / 2);
+    memset(m_frame_buffer, 0xFF, epd_width() * epd_height() / 2);
   }
   virtual int get_page_width()
   {
     // don't forget we are rotated
-    return EPD_HEIGHT - (margin_left + margin_right);
+    return epd_height() - (margin_left + margin_right);
   }
   virtual int get_page_height()
   {
     // don't forget we are rotated
-    return EPD_WIDTH - (margin_top + margin_bottom);
+    return epd_width() - (margin_top + margin_bottom);
   }
   virtual int get_space_width()
   {
@@ -189,7 +189,7 @@ public:
   {
     // compress the buffer to save space and increase performance - writing data is slow!
     size_t compressed_size = 0;
-    void *compressed = tdefl_compress_mem_to_heap(m_frame_buffer, EPD_WIDTH * EPD_HEIGHT / 2, &compressed_size, 0);
+    void *compressed = tdefl_compress_mem_to_heap(m_frame_buffer, epd_width() * epd_height() / 2, &compressed_size, 0);
     if (compressed)
     {
       ESP_LOGI("EPD", "Buffer compressed size: %d", compressed_size);
@@ -230,7 +230,7 @@ public:
         if (compressed)
         {
           fread(compressed, 1, compressed_size, fp);
-          int result = tinfl_decompress_mem_to_mem(m_frame_buffer, EPD_WIDTH * EPD_HEIGHT / 2, compressed, compressed_size, 0);
+          int result = tinfl_decompress_mem_to_mem(m_frame_buffer, epd_width() * epd_height() / 2, compressed, compressed_size, 0);
           if (result == TINFL_DECOMPRESS_MEM_TO_MEM_FAILED)
           {
             ESP_LOGE("EPD", "Failed to decompress front buffer");
@@ -238,7 +238,7 @@ public:
           else
           {
             success = true;
-            ESP_LOGI("EPD", "Success decompressing %d bytes", EPD_WIDTH * EPD_HEIGHT / 2);
+            ESP_LOGI("EPD", "Success decompressing %d bytes", epd_width() * epd_height() / 2);
           }
           free(compressed);
         }
