@@ -5,6 +5,9 @@
 #include <italic_font.h>
 #include <bold_italic_font.h>
 #include <hourglass.h>
+#ifdef USE_KINDLE_TOUCH
+  #include "controls/KindleTouchControls.h"
+#endif
 #include "controls/EpdiyV6ButtonControls.h"
 
 // setup the pins to use for navigation
@@ -43,4 +46,22 @@ ButtonControls *Epdiy::get_button_controls(xQueueHandle ui_queue)
       {
         xQueueSend(ui_queue, &action, 0);
       });
+}
+
+TouchControls *Epdiy::get_touch_controls(Renderer *renderer, xQueueHandle ui_queue)
+{
+#ifdef USE_KINDLE_TOUCH
+  return new KindleTouchControls(
+      renderer,
+      3,
+      epd_width(),
+      epd_height(),
+      3,
+      [ui_queue](UIAction action)
+      {
+        xQueueSend(ui_queue, &action, 0);
+      });
+#endif
+  // dummy implementation
+  return new TouchControls();
 }

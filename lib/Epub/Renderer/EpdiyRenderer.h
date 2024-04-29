@@ -26,14 +26,13 @@ public:
     // start up the EPD
     epd_init(&epd_board_v7, &ED060XC3, EPD_LUT_64K);
 
+    epd_set_vcom(1560);
+    epd_poweron();
     m_hl = epd_hl_init(EPD_BUILTIN_WAVEFORM);
     // first set full screen to white
     epd_hl_set_all_white(&m_hl);
     m_frame_buffer = epd_hl_get_framebuffer(&m_hl);
 
-#ifndef CONFIG_EPD_BOARD_REVISION_LILYGO_T5_47
-    epd_poweron();
-#endif
   }
   ~EpdiyRenderer()
   {
@@ -41,12 +40,15 @@ public:
   }
   void flush_display()
   {
+    
     epd_hl_update_screen(&m_hl, needs_gray_flush ? MODE_GC16 : MODE_DU, temperature);
     needs_gray_flush = false;
+    
   }
   void flush_area(int x, int y, int width, int height)
   {
     epd_hl_update_area(&m_hl, MODE_DU, temperature, {.x = x, .y = y, .width = width, .height = height});
+    vTaskDelay(pdMS_TO_TICKS(50));
   }
   virtual void reset()
   {

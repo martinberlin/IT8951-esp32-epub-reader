@@ -253,6 +253,7 @@ void RubbishHtmlParser::render_page(int page_index, Renderer *renderer, Epub *ep
   try
     {
       pages.at(page_index)->render(renderer, epub);
+
     } catch (const std::out_of_range &oor) {
       ESP_LOGI(TAG, "render_page out of range");
       // This could be nicer. Notice that last word "button" is cut          v
