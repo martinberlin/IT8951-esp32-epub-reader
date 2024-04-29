@@ -39,7 +39,7 @@ SDCard::SDCard(const char *mount_point, gpio_num_t miso, gpio_num_t mosi, gpio_n
       .max_transfer_sz = 0,
       .flags = 0,
       .intr_flags = 0};
-  ret = spi_bus_initialize(spi_host_device_t(m_host.slot), &bus_cfg, SPI_DMA_CHAN);
+  ret = spi_bus_initialize(spi_host_device_t(m_host.slot), &bus_cfg, SPI_DMA_CH_AUTO);
   if (ret != ESP_OK)
   {
     if (ret == ESP_ERR_INVALID_STATE)

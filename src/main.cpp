@@ -35,7 +35,7 @@ typedef enum
 
 // default to showing the list of epubs to the user
 RTC_NOINIT_ATTR UIState ui_state = SELECTING_EPUB;
-// the state data for the epub list and reader
+// the state data for the epub list and reader: works->RTC_FAST_ATTR RTC_DATA_ATTR
 RTC_DATA_ATTR EpubListState epub_list_state;
 // the state data for the epub index list
 RTC_DATA_ATTR EpubTocState epub_index_state;
@@ -229,12 +229,12 @@ void main_task(void *param)
 
   // set the controls up
   ESP_LOGI("main", "Setting up controls");
-  ButtonControls *button_controls = board->get_button_controls(ui_queue);
+  //ButtonControls *button_controls = board->get_button_controls(ui_queue);
   TouchControls *touch_controls = board->get_touch_controls(renderer, ui_queue);
 
   ESP_LOGI("main", "Controls configured");
   // work out if we were woken from deep sleep
-  if (button_controls->did_wake_from_deep_sleep())
+  /* if (button_controls->did_wake_from_deep_sleep())
   {
     // restore the renderer state - it should have been saved when we went to sleep...
     bool hydrate_success = renderer->hydrate();
@@ -242,12 +242,12 @@ void main_task(void *param)
     handleUserInteraction(renderer, ui_action, !hydrate_success);
   }
   else
-  {
+  { */
     // reset the screen
     renderer->reset();
     // make sure the UI is in the right state
     handleUserInteraction(renderer, NONE, true);
-  }
+  //}
 
   // draw the battery level before flushing the screen
   if (battery)
@@ -296,7 +296,7 @@ void main_task(void *param)
   ESP_ERROR_CHECK(esp_sleep_enable_ulp_wakeup());
   ESP_LOGI("main", "Entering deep sleep");
   // configure deep sleep options
-  button_controls->setup_deep_sleep();
+  //button_controls->setup_deep_sleep();
   vTaskDelay(pdMS_TO_TICKS(500));
   // go to sleep
   esp_deep_sleep_start();

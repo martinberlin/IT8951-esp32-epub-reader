@@ -1,23 +1,17 @@
 #include <esp_log.h>
 #include "Board.h"
 #include "Epdiy.h"
-#include "Lilygo_t5_47.h"
-#include "M5Paper.h"
+#ifdef USE_SPIFFS
 #include <SPIFFS.h>
+#endif
 #include <SDCard.h>
 #include "battery/ADCBattery.h"
 #include "controls/GPIOButtonControls.h"
 
 Board *Board::factory()
 {
-#ifdef BOARD_TYPE_LILIGO_T5_47
-  return new Lilygo_t5_47();
-#endif
 #ifdef BOARD_TYPE_EPDIY
   return new Epdiy();
-#endif
-#ifdef BOARD_TYPE_M5_PAPER
-  return new M5Paper();
 #endif
 }
 
