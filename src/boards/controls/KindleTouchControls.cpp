@@ -3,7 +3,6 @@
 #include "KindleTouchControls.h"
 
 QueueHandle_t gpio_evt_queue = NULL;
-QueueHandle_t touch_queue = NULL;
 
 static KindleTouchControls *instance = nullptr;
 
@@ -139,11 +138,8 @@ static void touch_INT(void *data) {
             if (touch) {
                 xy_data.x1 = be16_to_cpu(xy_data.x1);
                 xy_data.y1 = be16_to_cpu(xy_data.y1);
+                instance->handleTouch(xy_data.x1, xy_data.y1);
                 printf("x:%d y:%d\n",xy_data.x1,xy_data.y1);
-                //handleTouch(xy_data.x1,xy_data.y1);
-            if (xQueueSend( touch_queue, &xy_data, ( TickType_t ) 0 ) != pdTRUE) {
-                ESP_LOGW("touch INT", "Could not add xy_data in queue");
-            }
             }
         }
 
@@ -215,7 +211,6 @@ KindleTouchControls::KindleTouchControls(Renderer *renderer, int touch_int, int 
     //create a queue to handle gpio event from isr
     struct cyttsp_xydata xy_data;
     gpio_evt_queue = xQueueCreate(TOUCH_QUEUE_LENGTH, sizeof(uint8_t));
-    touch_queue = xQueueCreate(TOUCH_QUEUE_LENGTH, sizeof(xy_data));
 
     //i2c_master_init(); // I2C is already started by LVGL
 

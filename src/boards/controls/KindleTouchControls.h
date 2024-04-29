@@ -98,14 +98,6 @@ class Renderer;
 class KindleTouchControls : public TouchControls
 {
 private:
-  xTaskHandle m_handle;
-	void*       m_taskData;
-	static void runTask(void* data);
-	std::string m_taskName = "touchINT";
-  uint16_t    m_stackSize = configMINIMAL_STACK_SIZE * 8;
-	uint8_t     m_priority = 5;
-	BaseType_t  m_coreId = APP_CPU_NUM;
-
   ActionCallback_t on_action;
   KindleTouchControls *ts;
   // Touch UI buttons (Top left and activated only when USE_TOUCH is defined)
